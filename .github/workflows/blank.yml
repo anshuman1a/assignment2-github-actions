@@ -1,5 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
 jobs:
-  test:
+  build:
+    runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python (if needed, or another environment setup)
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Run build (Example)
+        run: echo "Building project..."
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build  # This makes 'test' run after 'build' completes successfully
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: anshuman.singh@gramener.com
         run: echo "Hello, world!"
